@@ -1,6 +1,8 @@
 # 📱 Mobile Usage Analysis  
 > Phân tích thói quen sử dụng điện thoại của người dùng  
 
+🔗 GitHub Repository: https://github.com/truongln04/mobile_usage_analysis.git  
+
 ---
 
 ## 📌 Giới thiệu (Introduction)
@@ -12,17 +14,17 @@ Mục tiêu là hiểu rõ hành vi sử dụng ứng dụng và xây dựng mô
 
 ## 🎯 Mục tiêu (Objectives)
 
-- 📊 Phân tích dữ liệu sử dụng điện thoại
-- 🧹 Làm sạch dữ liệu (Data Cleaning)
-- 📈 Trực quan hóa dữ liệu (Visualization)
-- 🤖 Xây dựng mô hình dự đoán (Machine Learning)
-- 🔍 Rút ra insight hành vi người dùng
+- 📊 Phân tích dữ liệu sử dụng điện thoại  
+- 🧹 Làm sạch dữ liệu (Data Cleaning)  
+- 📈 Trực quan hóa dữ liệu (Visualization)  
+- 🤖 Xây dựng mô hình dự đoán (Machine Learning)  
+- 🔍 Rút ra insight hành vi người dùng  
 
 ---
 
 ## 📂 Dataset
 
-- 📁 Nguồn: Kaggle  
+- 📁 Nguồn: Kaggle: https://www.kaggle.com/datasets/khushikyad001/screen-time-and-app-usage-dataset-iosandroid
 - 📊 Các thuộc tính chính:
   - `user_id` – ID người dùng  
   - `date` – ngày sử dụng  
@@ -48,98 +50,129 @@ Mục tiêu là hiểu rõ hành vi sử dụng ứng dụng và xây dựng mô
 
 ## 📁 Cấu trúc dự án
 
+~~~bash
 mobile_usage_analysis/
 │
-├── data/                  # Dataset
+├── data/                  # Dataset (file CSV)
 ├── result/                # Output (biểu đồ, file CSV)
 │
 ├── src/
 │   ├── data_loader.py     # Load dữ liệu
-│   ├── preprocessing.py   # Làm sạch + feature
+│   ├── preprocessing.py   # Làm sạch + feature engineering
 │   ├── eda.py             # Phân tích dữ liệu
 │   ├── visualization.py   # Vẽ biểu đồ
 │   └── model.py           # Machine Learning
 │
 ├── main.py                # File chạy chính
 ├── README.md
+~~~
 
 ---
 
-## ▶️ Cách chạy dự án
+## ▶️ Cài đặt (Installation)
 
-### 1️⃣ Cài thư viện
+### 1️⃣ Clone project
 
+~~~bash
+git clone https://github.com/truongln04/mobile_usage_analysis.git
+cd mobile_usage_analysis
+~~~
+
+---
+
+### 2️⃣ Tạo môi trường ảo
+
+~~~bash
+python -m venv venv
+~~~
+
+👉 Kích hoạt:
+
+- Windows:
+~~~bash
+venv\Scripts\activate
+~~~
+
+- Mac/Linux:
+~~~bash
+source venv/bin/activate
+~~~
+
+---
+
+### 3️⃣ Cài đặt thư viện
+
+~~~bash
 pip install pandas numpy matplotlib seaborn scikit-learn
+~~~
 
-### 2️⃣ Chạy chương trình
+---
 
+## ▶️ Chạy chương trình
+
+~~~bash
 python main.py
+~~~
 
 ---
 
 ## 📊 Kết quả (Results)
 
-### 📌 Visualization
+Sau khi chạy, kết quả nằm trong thư mục `result/`:
 
-- 📊 Top ứng dụng sử dụng nhiều nhất  
-- 🥧 Phân bố theo category  
-- 📈 Xu hướng sử dụng theo thời gian  
-- 📅 Sử dụng theo ngày trong tuần  
-- 📦 Phân bố dữ liệu (Boxplot)  
-- ⚖️ So sánh app hữu ích và không hữu ích  
+- 📊 top_apps.png  
+- 🥧 category.png  
+- 📈 trend.png  
+- 📅 weekday.png  
+- 📦 boxplot.png  
+- ⚖️ productive.png  
+- 🤖 model_comparison.png  
+- 📍 predict_vs_actual.png  
+- 📉 error_distribution.png  
+- 📄 predictions.csv  
 
 ---
 
-### 🤖 Machine Learning
-
-Sử dụng 2 mô hình:
+## 🤖 Mô hình sử dụng
 
 - 🔹 Linear Regression  
 - 🔹 Random Forest  
 
-### 📊 Chỉ số đánh giá:
+### 📊 Đánh giá:
 
-- MAE (Mean Absolute Error)  
-- RMSE (Root Mean Squared Error)  
+- MAE  
+- RMSE  
 - R² Score  
 
 ---
 
-## 📉 Biểu đồ mô hình
-
-- 📊 So sánh hiệu suất model  
-- 📍 Dự đoán vs thực tế  
-- 📉 Phân bố sai số  
-
----
-
-## 🔍 Insight (Kết luận)
+## 🔍 Insight
 
 - 📱 Người dùng tập trung vào một số ứng dụng chính  
-- 🎮 Ứng dụng giải trí chiếm phần lớn thời gian  
-- 📅 Có sự khác biệt rõ theo ngày trong tuần  
-- 🤖 Random Forest cho kết quả dự đoán tốt hơn Linear Regression  
+- 🎮 App giải trí chiếm nhiều thời gian  
+- 📅 Có khác biệt theo ngày  
+- 🤖 Random Forest tốt hơn  
 
 ---
 
-## ⚠️ Hạn chế (Limitations)
+## ⚠️ Hạn chế
 
-- Dataset còn nhỏ  
-- Chưa có nhiều đặc trưng nâng cao  
-- Chưa áp dụng mô hình Deep Learning  
+- Dataset nhỏ  
+- Ít feature  
+- Chưa dùng Deep Learning  
 
 ---
 
-## 🚀 Hướng phát triển (Future Work)
+## 🚀 Hướng phát triển
 
-- 🔍 Thêm nhiều feature hơn  
-- ⏳ Áp dụng phân tích chuỗi thời gian (Time Series)  
-- 🤖 Nâng cấp model (XGBoost, LSTM)  
-- 📊 Xây dựng dashboard trực quan  
+- 🔍 Thêm feature  
+- ⏳ Time Series  
+- 🤖 XGBoost / LSTM  
+- 📊 Dashboard  
 
 ---
 
 ## 👨‍💻 Tác giả
 
-- ✍️ Sinh viên: Lưu Nguyên Trường  
-- 🎓 Môn học: Phân tích dữ liệu Python  
+- ✍️ **Lưu Nguyên Trường**  
+- 🎓 Phân tích dữ liệu Python  
