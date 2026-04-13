@@ -5,7 +5,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-
+import seaborn as sns
 
 def train_model(df):
     print("\n===== TRAIN MODEL =====")
@@ -159,21 +159,23 @@ def train_model(df):
     # ==============================
     error = y_test - y_pred_best
 
-    plt.figure(figsize=(7, 5))
-    plt.hist(error, bins=20)
+    plt.figure(figsize=(8, 6))
+    sns.histplot(error, bins=20, kde=True, color='steelblue', edgecolor='black', alpha=0.7)
 
-    plt.title("Phân bố sai số của mô hình", fontsize=14)
+    # Đường tham chiếu tại 0
+    plt.axvline(0, color='red', linestyle='--', linewidth=2, label='Sai số = 0')
+
+    plt.title("Phân bố sai số của mô hình", fontsize=16, fontweight='bold')
     plt.xlabel("Sai số (Actual - Predicted)", fontsize=12)
     plt.ylabel("Tần suất", fontsize=12)
+    plt.legend()
 
-    plt.grid(True)
-
-    # 👉 chú thích bên phải
+    # Chú thích bên phải
     plt.gca().text(
         1.02, 0.5,
-        "Ghi chú:\n- Sai số gần 0 → dự đoán tốt\n- Phân bố đều → mô hình ổn định",
+        "Ghi chú:\n- Sai số gần 0 → dự đoán tốt\n- Phân bố hẹp → mô hình ổn định",
         transform=plt.gca().transAxes,
-        fontsize=9,
+        fontsize=10,
         verticalalignment='center',
         bbox=dict(facecolor='white', alpha=0.8)
     )

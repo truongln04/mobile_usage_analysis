@@ -52,68 +52,87 @@ def plot_category(df):
 # 3. TREND
 # ==============================
 def plot_trend(df):
+    # Tính tổng screen time theo ngày
     daily = df.groupby('date')['screen_time_min'].sum()
 
-    plt.figure(figsize=(8,5))
-    plt.plot(daily, marker='o', label='Screen Time')
+    # Trung bình trượt 7 ngày để làm mượt xu hướng
+    rolling = daily.rolling(window=7).mean()
 
-    plt.title("Usage Trend Over Time\n(Xu hướng sử dụng theo thời gian)")
-    plt.xlabel("Date (Ngày)")
-    plt.ylabel("Screen Time (phút)")
+    # Style đẹp
+    sns.set_style("whitegrid")
+
+    plt.figure(figsize=(12,6))
+    plt.plot(daily.index, daily.values, marker='o', color='steelblue', alpha=0.6, label='Daily Screen Time')
+    plt.plot(rolling.index, rolling.values, color='red', linewidth=2, label='7-day Rolling Avg')
+
+    plt.title("Usage Trend Over Time\n(Xu hướng sử dụng theo thời gian)", fontsize=16, fontweight='bold')
+    plt.xlabel("Date (Ngày)", fontsize=12)
+    plt.ylabel("Screen Time (phút)", fontsize=12)
+    plt.xticks(rotation=45)
     plt.legend()
-    plt.grid(True)
 
-    plt.text(0.02, 0.9,
-             "Trend shows increase/decrease\n(Xu hướng tăng/giảm)",
-             transform=plt.gca().transAxes,
+    # Chú thích rõ ràng
+    plt.text(daily.index[int(len(daily)*0.05)], max(daily)*0.9,
+             "Đường đỏ = xu hướng trung bình\nĐường xanh = dao động thực tế",
              bbox=dict(facecolor='white', alpha=0.8))
 
+    plt.tight_layout()
     plt.savefig("result/trend.png", bbox_inches='tight')
     plt.show()
-
 
 # ==============================
 # 4. WEEKDAY
 # ==============================
 def plot_weekday(df):
+    # Tính trung bình theo ngày trong tuần
     weekday = df.groupby('weekday')['screen_time_min'].mean()
 
-    ax = weekday.plot(kind='bar', figsize=(8,5), label='Average Usage')
+    # Đặt thứ tự ngày trong tuần (giả sử weekday = Monday, Tuesday,...)
+    order = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    weekday = weekday.reindex(order)
 
-    plt.title("Average Usage by Weekday\n(Thời gian trung bình theo ngày)")
-    plt.xlabel("Weekday (Ngày trong tuần)")
-    plt.ylabel("Average Screen Time (phút)")
+    # Style đẹp
+    sns.set_style("whitegrid")
+    ax = weekday.plot(kind='bar', figsize=(9,6), color='steelblue', edgecolor='black', alpha=0.8, label='Average Usage')
+
+    plt.title("Average Usage by Weekday\n(Thời gian trung bình theo ngày)", fontsize=16, fontweight='bold')
+    plt.xlabel("Weekday (Ngày trong tuần)", fontsize=12)
+    plt.ylabel("Average Screen Time (phút)", fontsize=12)
     plt.legend()
 
+    # Hiển thị giá trị trên cột
     for container in ax.containers:
-        ax.bar_label(container, fmt='%.1f')
+        ax.bar_label(container, fmt='%.1f', fontsize=10)
 
+    # Chú thích bên phải
     ax.text(1.02, 0.5,
             "Higher → more usage\n(Cao hơn → dùng nhiều)",
             transform=ax.transAxes,
-            fontsize=9,
+            fontsize=10,
             bbox=dict(facecolor='white', alpha=0.8))
 
     plt.tight_layout()
     plt.savefig("result/weekday.png", bbox_inches='tight')
     plt.show()
 
-
 # ==============================
 # 5. BOXPLOT
 # ==============================
 def plot_box(df):
-    plt.figure(figsize=(7,4))
-    sns.boxplot(x=df['screen_time_min'])
+    plt.figure(figsize=(8,5))
+    sns.boxplot(x=df['screen_time_min'], color='skyblue')
 
-    plt.title("Distribution of Screen Time\n(Phân bố thời gian sử dụng)")
-    plt.xlabel("Screen Time (phút)")
+    plt.title("Distribution of Screen Time\n(Phân bố thời gian sử dụng)", fontsize=14, fontweight='bold')
+    plt.xlabel("Screen Time (phút)", fontsize=12)
 
-    plt.text(0.7, 0.8,
+    # Chú thích
+    plt.text(0.7, 0.85,
              "Outliers = unusual usage\n(Giá trị bất thường)",
              transform=plt.gca().transAxes,
+             fontsize=10,
              bbox=dict(facecolor='white', alpha=0.8))
 
+    plt.tight_layout()
     plt.savefig("result/boxplot.png", bbox_inches='tight')
     plt.show()
 
