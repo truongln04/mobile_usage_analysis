@@ -1,4 +1,4 @@
-﻿user_id,date,app_name,category,screen_time_min,launches,interactions,is_productive,weekday,month
+user_id,date,app_name,category,screen_time_min,launches,interactions,is_productive,weekday,month
 1051,2024-01-01 00:00:00.000000000,Camera,Utilities,24.53,2,7,False,Monday,1
 1088,2024-01-01 00:43:41.673891297,Chrome,Utilities,19.78,3,2,False,Monday,1
 1052,2024-01-01 01:27:23.347782594,Spotify,Entertainment,32.03,1,6,False,Monday,1
